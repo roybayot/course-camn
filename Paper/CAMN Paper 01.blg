@@ -1,0 +1,79 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: CAMN Paper 01.aux
+The style file: plain.bst
+Database file #1: citations.bib
+Repeated entry---line 135 of file citations.bib
+ : %@inproceedings{rangel:2015
+ :                            ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 148 of file citations.bib
+ : %@inproceedings{rangel:2015
+ :                            ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 165 of file citations.bib
+ : %@proceedings{rangel:2015
+ :                          ,
+I'm skipping whatever remains of this entry
+You're missing a field name---line 177 of file citations.bib
+ : 
+ : %  title={Overview of the 3nd Author Profiling Task at PAN 2015},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 231 of file citations.bib
+ : @inproceedings{schler2006effects
+ :                                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 278 of file citations.bib
+ : @inproceedings{schmid1994probabilistic
+ :                                       ,
+I'm skipping whatever remains of this entry
+Warning--empty journal in lopezusing
+Warning--empty year in lopezusing
+Warning--empty journal in maharjansimple
+Warning--empty year in maharjansimple
+Warning--empty journal in villenadaedalus
+Warning--empty year in villenadaedalus
+Warning--empty year in weren6exploring
+You've used 16 entries,
+            2118 wiz_defined-function locations,
+            580 strings with 7440 characters,
+and the built_in function-call counts, 6448 in all, are:
+= -- 576
+> -- 461
+< -- 5
++ -- 181
+- -- 164
+* -- 507
+:= -- 1113
+add.period$ -- 48
+call.type$ -- 16
+change.case$ -- 128
+chr.to.int$ -- 0
+cite$ -- 23
+duplicate$ -- 212
+empty$ -- 407
+format.name$ -- 164
+if$ -- 1287
+int.to.chr$ -- 0
+int.to.str$ -- 16
+missing$ -- 16
+newline$ -- 80
+num.names$ -- 34
+pop$ -- 154
+preamble$ -- 1
+purify$ -- 112
+quote$ -- 0
+skip$ -- 142
+stack$ -- 0
+substring$ -- 250
+swap$ -- 46
+text.length$ -- 5
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 64
+warning$ -- 7
+while$ -- 48
+width$ -- 18
+write$ -- 163
+(There were 6 error messages)
