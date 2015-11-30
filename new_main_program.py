@@ -19,5 +19,27 @@ def clean_text(raw_text):
     words = review_text.lower().split()
     return(" ".join(words))
 
+def clean_all_text(allText, numLines):
+    clean_train_data = []
+    for i in xrange(0, numLines):
+        clean_train_data.append(clean_text(allText[i]))
+    return clean_train_data
 
+def makeTFIDF():
+
+def main():
+    datafile = "summary-english-file"
+
+    train = pd.read_csv(datafile, header=0, delimiter="\t", quoting=1)
+
+
+    cleanFile
+
+    getNumImptWords()
+
+    doSVMwithPoly()
+    doSVMwithRBF()
+
+    doRandomForest()
+    doBoosting()
 
