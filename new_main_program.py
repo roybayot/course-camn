@@ -20,11 +20,8 @@ def clean_text(raw_text):
     return(" ".join(words))
 
 def clean_all_text(allText, numLines):
-    clean_train_data = []
     for i in xrange(0, numLines):
-        clean_train_data.append(clean_text(allText[i]))
-    return clean_train_data
-
+        
 def makeTFIDF():
 
 def main():
