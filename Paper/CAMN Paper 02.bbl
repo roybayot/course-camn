@@ -5,10 +5,21 @@ Shlomo Argamon, Moshe Koppel, James~W Pennebaker, and Jonathan Schler.
 \newblock Automatically profiling the author of an anonymous text.
 \newblock {\em Communications of the ACM}, 52(2):119--123, 2009.
 
+\bibitem{breiman2001random}
+Leo Breiman.
+\newblock Random forests.
+\newblock {\em Machine learning}, 45(1):5--32, 2001.
+
 \bibitem{cortes1995support}
 Corinna Cortes and Vladimir Vapnik.
 \newblock Support-vector networks.
 \newblock {\em Machine learning}, 20(3):273--297, 1995.
+
+\bibitem{freund1997decision}
+Yoav Freund and Robert~E Schapire.
+\newblock A decision-theoretic generalization of on-line learning and an
+  application to boosting.
+\newblock {\em Journal of computer and system sciences}, 55(1):119--139, 1997.
 
 \bibitem{lopezusing}
 A~Pastor L{\'o}pez-Monroy, Manuel Montes-y G{\'o}mez, Hugo~Jair Escalante, and
@@ -86,5 +97,10 @@ Edson~RD Weren, Viviane~P Moreira, and Jos{\'e}~PM de~Oliveira.
 \newblock Exploring information retrieval features for author
   profiling—notebook for pan at clef 2014.
 \newblock {\em Cappellato et al.[6]}.
+
+\bibitem{wilcoxon1945individual}
+Frank Wilcoxon.
+\newblock Individual comparisons by ranking methods.
+\newblock {\em Biometrics bulletin}, pages 80--83, 1945.
 
 \end{thebibliography}
