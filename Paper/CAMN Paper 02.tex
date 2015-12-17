@@ -351,73 +351,111 @@ Gender                & 0.8021          & 0.8079                         & 0.820
 
 
 \subsection{Ensemble Methods}
-Accuracy results for random forests are given in tables~\ref{table:AgeRandomForests} and~\ref{table:GenderRandomForests}. Accuracy results for AdaBoost are given in table~\ref{table:AgeAdaBoost} and~\ref{table:GenderAdaBoost}.
-\begin{table}[!htbp]
-\centering
-\begin{tabular}{|c|c|}
-\hline
-n-estimator & Accuracy \\ \hline
-10          & 0.6058 \\ \hline
-100         & 0.6046 \\ \hline
-1000        & 0.6112 \\ \hline
-2000        & 0.6046 \\ \hline
-5000        & 0.6108 \\ \hline
-10000       & 0.6175 \\ \hline
-\end{tabular}
-\caption{Accuracy results for age classification using forests of randomized trees.}
-\label{table:AgeRandomForests}
-\end{table}
+Accuracy results for random forests are given in table~\ref{table:RandomForests}. The highest accuracy obtained for age and gender classification using random forests are 61.12\% and 70.29\% respectively. However, after performing Wilcoxon signed rank test~\cite{wilcoxon1945individual} towards the other results within each task, the p-values show that the values are not statistically different from each other.  
 
 
 \begin{table}[!htbp]
 \centering
-\begin{tabular}{|c|c|}
+\begin{tabular}{|c|c|c|}
 \hline
-n-estimator & Accuracy \\ \hline
-10          & 0.5983 \\ \hline
-100         & 0.6500 \\ \hline
-1000        & 0.7029 \\ \hline
-2000        & 0.6762 \\ \hline
-5000        & 0.6963 \\ \hline
-10000       & 0.6967 \\ \hline
+n-estimators & Age    & Gender \\ \hline
+10           & 0.6058 & 0.5983 \\ \hline
+100          & 0.6046 & 0.6500 \\ \hline
+1000         & 0.6112 & 0.7029 \\ \hline
+2000         & 0.6046 & 0.6762 \\ \hline
+5000         & 0.6108 & 0.6963 \\ \hline
+10000        & 0.6175 & 0.6967 \\ \hline
 \end{tabular}
-\caption{Accuracy results for gender classification using forests of randomized trees.}
-\label{table:GenderRandomForests}
+\caption{Accuracy results for age and gender classification using forests of randomized trees.}
+\label{table:RandomForests}
 \end{table}
+
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|c|}
+%\hline
+%n-estimator & Accuracy \\ \hline
+%10          & 0.6058 \\ \hline
+%100         & 0.6046 \\ \hline
+%1000        & 0.6112 \\ \hline
+%2000        & 0.6046 \\ \hline
+%5000        & 0.6108 \\ \hline
+%10000       & 0.6175 \\ \hline
+%\end{tabular}
+%\caption{Accuracy results for age classification using forests of randomized trees.}
+%\label{table:AgeRandomForests}
+%\end{table}
+%
+%
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|c|}
+%\hline
+%n-estimator & Accuracy \\ \hline
+%10          & 0.5983 \\ \hline
+%100         & 0.6500 \\ \hline
+%1000        & 0.7029 \\ \hline
+%2000        & 0.6762 \\ \hline
+%5000        & 0.6963 \\ \hline
+%10000       & 0.6967 \\ \hline
+%\end{tabular}
+%\caption{Accuracy results for gender classification using forests of randomized trees.}
+%\label{table:GenderRandomForests}
+%\end{table}
+Accuracy results for AdaBoost are given in table~\ref{table:AdaBoost}. The highest accuracy obtained for age and gender classification using AdaBoost are 54.79\% and 75.00\% respectively. However, after performing Wilcoxon signed rank test~\cite{wilcoxon1945individual} towards the other results within each task, the p-values show that the values are also not statistically different from each other. 
 
 \begin{table}[!htbp]
 \centering
-\begin{tabular}{|c|c|}
+\begin{tabular}{|c|c|c|}
 \hline
-n-estimator & Accuracy \\ \hline
-50          & 0.5479 \\ \hline
-100         & 0.5217 \\ \hline
-150         & 0.5475 \\ \hline
-200         & 0.5146 \\ \hline
-250         & 0.5275 \\ \hline
+n-estimators & Age    & Gender \\ \hline
+50           & 0.5479 & 0.6787 \\ \hline
+100          & 0.5217 & 0.7187 \\ \hline
+150          & 0.5475 & 0.7183 \\ \hline
+200          & 0.5146 & 0.7500 \\ \hline
+250          & 0.5275 & 0.7308 \\ \hline
 \end{tabular}
-\caption{Accuracy results for age classification using AdaBoost.}
-\label{table:AgeAdaBoost}
+\caption{Accuracy results for age and gender classification using AdaBoost.}
+\label{table:AdaBoost}
 \end{table}
 
-\begin{table}[!htbp]
-\centering
-\begin{tabular}{|c|c|}
-\hline
-n-estimator & Accuracy \\ \hline
-50          & 0.6787 \\ \hline
-100         & 0.7187 \\ \hline
-150         & 0.7183 \\ \hline
-200         & 0.7500 \\ \hline
-250         & 0.7308 \\ \hline
-\end{tabular}
-\caption{My caption}
-\label{table:GenderAdaBoost}
-\end{table}
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|c|}
+%\hline
+%n-estimator & Accuracy \\ \hline
+%50          & 0.5479 \\ \hline
+%100         & 0.5217 \\ \hline
+%150         & 0.5475 \\ \hline
+%200         & 0.5146 \\ \hline
+%250         & 0.5275 \\ \hline
+%\end{tabular}
+%\caption{Accuracy results for age classification using AdaBoost.}
+%\label{table:AgeAdaBoost}
+%\end{table}
+%
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|c|}
+%\hline
+%n-estimator & Accuracy \\ \hline
+%50          & 0.6787 \\ \hline
+%100         & 0.7187 \\ \hline
+%150         & 0.7183 \\ \hline
+%200         & 0.7500 \\ \hline
+%250         & 0.7308 \\ \hline
+%\end{tabular}
+%\caption{My caption}
+%\label{table:GenderAdaBoost}
+%\end{table}
 
 
 \section{Conclusions and Future Work}
-%Given the different experiments, it could be shown that the highest accuracy that could be achieved were 80.92\% and 74.29\% for age and gender respectively. The highest accuracies could be attained could either be from polynomial kernels or radial basis function kernels. For instance, for age classification, the highest accuracy could either be obtained with a polynomial kernel with degree 3 and C to be 10 or it could also be a through a radial basis function with gamma to be 0.001 and C to be 10000. For gender classification, the similarity exists as well. A polynomial kernel could be used with the second degree and C to be 10000 and it will yield the same accuracy as the one with a radial basis function with gamma to be 0.01 and and C to be 10000. 
+There are various conclusions that could be found from the results. First, we can conclude that using minimal preprocessing, using the top 9000 features as ranked by information gain for age classification would yield the same results as using all the different features, from a statistical standpoint. This also goes true for gender classification but with the top 7000 features. Second, looking into the differences in kernel functions, the results show that the highest accuracy that could be achieved were 80.92\% and 80.79\% for age and gender respectively. These accuracies could be attained could from either polynomial kernels or radial basis function kernels. For instance, for age classification, the highest accuracy could either be obtained with a polynomial kernel with degree 3 and C to be 10 or it could also be a through a radial basis function with gamma to be 0.001 and C to be 10000. For gender classification, the similarity exists as well. A polynomial kernel could be used with the second degree and C to be 10000 and it will yield the same accuracy as the one with a radial basis function with gamma to be 0.01 and and C to be 10000. For the purposes of our next experiments, we fixed the parameters such that for age classification, we an SVM with polynomial kernel with degree to be 3 and $C$ to be 10, while for gender classification, we use a radial basis function kernel with gamma to be 1 and $C$ to be 10. Third, looking into features that are specific to twitter data, we see that substituting a hyperlinks and hashtags lower the accuracy as compared to the best among the previous experiments, although they arent statistically different. Fourth, we can also see that using information given by another class does not improve the classification results. Finally, results from ensemble methods are not statistically different from each other and accuracy results are lower than the others. 
+
+For future work, it should be noted that the current features are very minimal. The preprocessing is minimal. The features are~\textit{tfidf} ranked by information gain. For twitter specific features, only the hashtags, user mentions, and hyperlinks were identified and checked. It would be better if other features specific to twitter could be incorporated. Examples of such would be emoticons and character flooding. Experiments with character ngrams is also another direction to check. 
+
+
 %
 %We have to note that in this set of experiments, the features used were only~\textit{tfidf}. However, using other features in conjunction with parameter tuning, can also yield better results. Other features can include POS tags, text and character ngrams, length of words, ratios between uppercase and lowercase, non-dictionary words, emoticons, and lexical diversity. Furthermore, different types of preprocessing can also be done for this thing. 
 
