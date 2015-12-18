@@ -63,7 +63,25 @@ In PAN 2014~\cite{rangel2014overview}, the task was profiling authors with text 
 \section{Dataset and Tools}
 The dataset for the problem at hand is composed of a set of tweets for English. Different models were made for each classification task - age and gender. There were 4 categories for the age classification - 18-24, 25-34, 35-49, and 50 and above. Gender has two categories - male and female. 
 
-There were 152 users for English. Each user has different number of tweets. The dataset is balanced based on gender. Looking at the number of tweets per user, we can see that the minimum is 32 tweets, the maximum is 100 tweets per user, with an average of 93.20, a standard deviation of 16.82, and a median of 100. Looking at the total length of  all tweets for each character, the minimum is 1979 characters, the maximum is 12485 characters, an average of 7445.30 with a standard devation of 2389.61, and a median of 7438.5. Finally, looking into the average tweet length per user, the minimum is 29.46, the maximum is 124.85, average is 79.61, with a standard deviation of 20.28, and a median of 80.35.   
+There were 152 users for English. Each user has different number of tweets. The dataset is balanced based on gender. More data statistics could be found in table~\ref{table:TweetStats}.
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+                                    & min   & max    & average & std     & median \\ \hline
+number of tweets of each user       & 32    & 100    & 93.20   & 16.82   & 100    \\ \hline
+total length of tweets of each user & 1979  & 12485  & 7445.30 & 2389.61 & 7438.5 \\ \hline
+average tweet length of each user   & 29.46 & 124.85 & 79.61   & 20.28   & 80.35  \\ \hline
+\end{tabular}
+\caption{Various statistics on twitter data.}
+\label{table:TweetStats}
+\end{table}
+
+Looking at the number of tweets per user, we can see that the minimum is 32 tweets, the maximum is 100 tweets per user, with an average of 93.20, a standard deviation of 16.82, and a median of 100. Looking at the total length of  all tweets for each user, the minimum is 1979 characters, the maximum is 12485 characters, an average of 7445.30 with a standard devation of 2389.61, and a median of 7438.5. Finally, looking into the average tweet length per user, the minimum is 29.46, the maximum is 124.85, average is 79.61, with a standard deviation of 20.28, and a median of 80.35.   
+
+
+
 
 Processing the data was done through Python using the scikits-learn~\cite{scikit-learn} library. 
 
@@ -180,7 +198,7 @@ The results for feature selection are given in table~\ref{table:ChoosingNumFeatu
 %\end{table}
 
 \subsection{Different Kernels}
-The results for age classification using support vector machines with polynomial kernel is given by table~\ref{table:SVMPolyAge}. The highest accuracy obtained was 80.92\%. This was obtained from three different settings, degree 3 with C to be either 10, 1000, 10000. However, checking on Wilcoxon signed rank test, these results are not statistically significant to 80.25\% given by settings with degree 2 and C to be either 10, 1000, 10000. These results are also not statistically significant against 75\% with degree 3 and C to be 1. The results shown in boldface are the highest accuracies that are not statistically different from each other. 
+The results for age classification using support vector machines with polynomial kernel is given by table~\ref{table:SVMPolyAge}. The highest accuracy obtained was 80.92\%. This was obtained from three different settings, degree 3 with C to be either 10, 1000, 10000. However, checking on Wilcoxon signed rank test~\cite{wilcoxon1945individual}, these results are not statistically significant to 80.25\% given by settings with degree 2 and C to be either 10, 1000, 10000. These results are also not statistically significant against 75\% with degree 3 and C to be 1. The results shown in boldface are the highest accuracies that are not statistically different from each other. 
 
 \begin{table}[!htbp]
 \centering

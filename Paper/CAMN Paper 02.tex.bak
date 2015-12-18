@@ -56,14 +56,32 @@ The work of Lopez-Monroy in~\cite{lopez2013inaoe} was considered the winner for 
 The work of Meina et al.~\cite{meina2013ensemble} used collocations and placed first for English with a total accuracy of 38.94\%. They experimented on different classifiers but Random Forests gave the best result. Their final Random Forest classifier was trained on a 12-core machine with 30GB of RAM, and parameters were obtained through trial and error. The parameters include minimum samples per leaf to be equal to 5, the size of the feature set for each tree is equal to $\sqrt{n\_features}$, and the number of trees was lowered to 666 although it converges at values higher than 1000.  
 
 
-On the other hand, the work of Santosh et al. in~\cite{santosh2013author} gave a total accuracy of 42.08\% after using POS features for Spanish. They used three different kinds of features - content based, style based, and topic based. Each of the features has a classifier. Content based features in the form of ngrams and style based features in the form of ngrams of POS tags both used Support Vector Machines. Although the kernel and parameters used were not mentioned. Topic based features in the form of LDA topic model was used as features for a Maximum Entropy classifier. The results from each of the three classifiers are fed finally into 
+On the other hand, the work of Santosh et al. in~\cite{santosh2013author} gave a total accuracy of 42.08\% after using POS features for Spanish. They used three different kinds of features - content based, style based, and topic based. Each of the features has a classifier. Content based features in the form of ngrams and style based features in the form of ngrams of POS tags both used Support Vector Machines. Although the kernel and parameters used were not mentioned. Topic based features in the form of LDA topic model was used as features for a Maximum Entropy classifier. The results from each of the three classifiers are fed finally into a decision tree. 
 
 In PAN 2014~\cite{rangel2014overview}, the task was profiling authors with text from four different sources - social media, twitter, blogs, and hotel reviews. Most of the approaches used in this edition are similar to the previous year. In~\cite{lopezusing}, the method used to represent terms in a space of profiles and then represent the documents in the space of profiles and subprofiles were built using expectation maximization clustering. This is the same method as in the previous year in~\cite{lopez2013inaoe}. In~\cite{maharjansimple}, ngrams were used with stopwords, punctuations, and emoticons retained, and then idf count was also used before placed into a classifier. Liblinear logistic regression returned with the best result. In~\cite{weren6exploring}, different features were used that were related to length (number of characters, words, sentences), information retrieval (cosine similarity, okapi BM25), and readability (Flesch-Kincaid readability, correctness, style). Another approach is to use term vector model representation as in~\cite{villenadaedalus}. For the work of Marquardt et al. in~\cite{marquardt2014age}, they used a combination of content-based features (MRC, LIWC, sentiments) and stylistic features (readability, html tags, spelling and grammatical error, emoticons, total number of posts, number of capitalized letters number of capitalized words). Classifiers also varied for this edition. There was the use of logistic regression, multinomial Naïve Bayes, liblinear, random forests, Support Vector Machines, and decision tables. The method of Lopez-Monroy in~\cite{lopezusing} gave the best result with an average accuracy of 28.95\% on all corpus-types and languages. 
 
 \section{Dataset and Tools}
 The dataset for the problem at hand is composed of a set of tweets for English. Different models were made for each classification task - age and gender. There were 4 categories for the age classification - 18-24, 25-34, 35-49, and 50 and above. Gender has two categories - male and female. 
 
-There were 152 users for English. Each user has different number of tweets. The dataset is balanced based on gender. Looking at the number of tweets per user, we can see that the minimum is 32 tweets, the maximum is 100 tweets per user, with an average of 93.20, a standard deviation of 16.82, and a median of 100. Looking at the total length of  all tweets for each character, the minimum is 1979 characters, the maximum is 12485 characters, an average of 7445.30 with a standard devation of 2389.61, and a median of 7438.5. Finally, looking into the average tweet length per user, the minimum is 29.46, the maximum is 124.85, average is 79.61, with a standard deviation of 20.28, and a median of 80.35.   
+There were 152 users for English. Each user has different number of tweets. The dataset is balanced based on gender. More data statistics could be found in table~\ref{table:TweetStats}.
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+                                    & min   & max    & average & std     & median \\ \hline
+number of tweets of each user       & 32    & 100    & 93.20   & 16.82   & 100    \\ \hline
+total length of tweets of each user & 1979  & 12485  & 7445.30 & 2389.61 & 7438.5 \\ \hline
+average tweet length of each user   & 29.46 & 124.85 & 79.61   & 20.28   & 80.35  \\ \hline
+\end{tabular}
+\caption{Statistics on }
+\label{table:TweetStats}
+\end{table}
+
+Looking at the number of tweets per user, we can see that the minimum is 32 tweets, the maximum is 100 tweets per user, with an average of 93.20, a standard deviation of 16.82, and a median of 100. Looking at the total length of  all tweets for each user, the minimum is 1979 characters, the maximum is 12485 characters, an average of 7445.30 with a standard devation of 2389.61, and a median of 7438.5. Finally, looking into the average tweet length per user, the minimum is 29.46, the maximum is 124.85, average is 79.61, with a standard deviation of 20.28, and a median of 80.35.   
+
+
+
 
 Processing the data was done through Python using the scikits-learn~\cite{scikit-learn} library. 
 
@@ -180,7 +198,7 @@ The results for feature selection are given in table~\ref{table:ChoosingNumFeatu
 %\end{table}
 
 \subsection{Different Kernels}
-The results for age classification using support vector machines with polynomial kernel is given by table~\ref{table:SVMPolyAge}. The highest accuracy obtained was 80.92\%. This was obtained from three different settings, degree 3 with C to be either 10, 1000, 10000. However, checking on Wilcoxon signed rank test, these results are not statistically significant to 80.25\% given by settings with degree 2 and C to be either 10, 1000, 10000. These results are also not statistically significant against 75\% with degree 3 and C to be 1. The results shown in boldface are the highest accuracies that are not statistically different from each other. 
+The results for age classification using support vector machines with polynomial kernel is given by table~\ref{table:SVMPolyAge}. The highest accuracy obtained was 80.92\%. This was obtained from three different settings, degree 3 with C to be either 10, 1000, 10000. However, checking on Wilcoxon signed rank test~\cite{wilcoxon1945individual}, these results are not statistically significant to 80.25\% given by settings with degree 2 and C to be either 10, 1000, 10000. These results are also not statistically significant against 75\% with degree 3 and C to be 1. The results shown in boldface are the highest accuracies that are not statistically different from each other. 
 
 \begin{table}[!htbp]
 \centering
