@@ -49,17 +49,26 @@ The work or Argamon et al.~\cite{argamon2009automatically} became the basis for 
 In PAN 2014~\cite{rangel2014overview}, the task was profiling authors with text from four different sources - social media, twitter, blogs, and hotel reviews. Most of the approaches used in this edition are similar to the previous year. In~\cite{lopezusing}, the method used to represent terms in a space of profiles and then represent the documents in the space of profiles and subprofiles were built using expectation maximization clustering. This is the same method as in the previous year in~\cite{lopez2013inaoe}. In~\cite{maharjansimple}, ngrams were used with stopwords, punctuations, and emoticons retained, and then idf count was also used before placed into a classifier. Liblinear logistic regression returned with the best result. In~\cite{weren6exploring}, different features were used that were related to length (number of characters, words, sentences), information retrieval (cosine similarity, okapi BM25), and readability (Flesch-Kincaid readability, correctness, style). Another approach is to use term vector model representation as in~\cite{villenadaedalus}. For the work of Marquardt et al. in~\cite{marquardt2014age}, they used a combination of content-based features (MRC, LIWC, sentiments) and stylistic features (readability, html tags, spelling and grammatical error, emoticons, total number of posts, number of capitalized letters number of capitalized words). Classifiers also varied for this edition. There was the use of logistic regression, multinomial Naïve Bayes, liblinear, random forests, Support Vector Machines, and decision tables. The method of Lopez-Monroy in~\cite{lopezusing} gave the best result with an average accuracy of 28.95\% on all corpus-types and languages. 
 
 \section{Dataset and Tools}
-The dataset for the problem at hand is composed of a set of tweets for English. Different models were made for each classification task - age and gender. There were 4 categories for the age classification - 18-24, 25-34, 35-49, and 50 and above. Gender has two categories - male and female. There were 152 users for English. Each user has different number of tweets. The dataset is balanced based on gender. Processing the data was done through Python using the scikits-learn~\cite{scikit-learn} library. 
+The dataset for the problem at hand is composed of a set of tweets for English. Different models were made for each classification task - age and gender. There were 4 categories for the age classification - 18-24, 25-34, 35-49, and 50 and above. Gender has two categories - male and female. 
+
+There were 152 users for English. Each user has different number of tweets. The dataset is balanced based on gender. Looking at the number of tweets per user, we can see that the minimum is 32 tweets, the maximum is 100 tweets per user, with an average of 93.20, a standard deviation of 16.82, and a median of 100. Looking at the total length of  all tweets for each character, the minimum is 1979 characters, the maximum is 12485 characters, an average of 7445.30 with a standard devation of 2389.61, and a median of 7438.5. Finally, looking into   
+
+
+Processing the data was done through Python using the scikits-learn~\cite{scikit-learn} library. 
 
 \section{Methodology}
-The focus of this study is to determine optimal parameters for classification using support vector machines. The approach is to do preprocessing, feature extraction, feature selection, then use the optimal features into support vector machines with different parameters. Evaluation was made through 10 fold cross validation and Wilcoxon signed rank test was used to compare the statistical significance of the results. A confidence interval of 95\% was used. Therefore, if there was an experiment between two settings and the returned p-value after a Wilcoxon signed rank test yields less than 0.05, the null hypothesis is rejected. This means that the values are statistically different. If it yields a value greater than 0.05, it means that values between the two experiments are not statistically different. The study will look on the polynomial kernels and radial basis function kernels. It will also explore the effect of using one classification as an additional feature for the other. And this study will also explore the use of ensemble methods. 
+The focus of this study is to determine optimal parameters for classification using support vector machines. The approach is to do preprocessing, feature extraction, feature selection, then use the optimal features into support vector machines with different parameters. Evaluation was made through 10 fold cross validation.
+
+Wilcoxon signed rank test~\cite{wilcoxon1945individual} was used to compare the statistical significance of the results. This test allows the comparison between two experiments done on the same data set without making any assumptions on the distributions from which the set is drawn. A confidence interval of 95\% was used. Therefore, if there was an experiment between two settings and the returned p-value after a Wilcoxon signed rank test yields less than 0.05, the null hypothesis is rejected. This means that the values are statistically different. If it yields a value greater than 0.05, it means that values between the two experiments are not statistically different. 
+
+The study will look on the polynomial kernels and radial basis function kernels. It will also explore the effect of using the information of the other class on the classification. For instance, when dealing with age classification, gender information would be used in conjunction with other features. Finally, this study will also explore the use of ensemble methods. 
 
 \subsection{Preprocessing and Feature Extraction}
-For each language, xml files from each user are read. Then the tweets taken from each user are extracted and concatenated into one line to form one training example. The examples are then transformed by putting them all in lower case. No stop words are removed. Hashtags, numbers, mentions, shares, and retweets were not processed or transformed to anything else. The resulting file is used for feature extraction.  Features extracted were simply~\textit{tfidf} features.  
+For each language, xml files from each user are read. Then the tweets taken from each user are extracted and concatenated into one line to form one training example. The examples are then transformed by putting them all in lower case. No stop words are removed. Hashtags, numbers, mentions, shares, and retweets were not processed or transformed to anything else. They were retained as is and therefore will correspond to another item in the dictionary of features. The resulting file is used for feature extraction.  Features extracted were simply~\textit{tfidf} features.  
 
 
 \subsection{Feature Selection}
-After extracting~\textit{tfidf} features, we want to reduce the number of features in the text. To do that, classification was done using Support Vector Machines~\cite{cortes1995support} with a linear kernel, choosing C=1 as the default. But instead of using all the~\textit{tfidf} features, different number of features were tested. The number of features were ranked by either information gain or gain ratio. The results for the accuracies by varying the feature set is given in table~\ref{table:ChoosingNumFeatures} in the succeeding chapter. However, it is suffice to say that for the succeeding experiment on polynomial kernels and radial basis function kernels, the number of features selected will be 9000 and 7000 for age and gender classification respectively. The discussion on settling for the features is given in the succeeding chapter. 
+After extracting~\textit{tfidf} features, we want to reduce the number of features in the text. To do that, classification was done using Support Vector Machines~\cite{cortes1995support} with a linear kernel, choosing C=1 as the default. But instead of using all the~\textit{tfidf} features, different number of features were tested. The number of features were ranked by either information gain or gain ratio. The results for the accuracies by varying the feature set is given in table~\ref{table:ChoosingNumFeatures} in the succeeding chapter. However, it is suffice to say that for the succeeding experiment on polynomial kernels and radial basis function kernels, the number of features selected will be 9000 and 7000 for age and gender classification respectively. The discussion on selecting the number of features is given in the succeeding chapter. 
 
 
 
@@ -76,7 +85,7 @@ K(x) = (\gamma(x^Tx)+c)^d
 \label{eqn:poly-kernel-scikit}
 \end{equation}
 
-For our experiments, we set the gamma to be equal to 1 but the degrees $d$ to vary between 1, 2, and 3. For age classification, $c$ varies between 0.0001, 0.001, 0.1, 1, 10, 1000, 10000. For gender classification however, $c$ varies  between 0.0001, 0.1, 1, 10, 10000.  
+For our experiments, we set the gamma to be equal to 1 but the degrees $d$ to vary between 1, 2, and 3. For both age and gender classification, $c$ varies between 0.0001, 0.001, 0.1, 1, 10, 1000, 10000.   
 
 Radial basis function kernel is another kernel explored. Mathematically, it is given by equation~\ref{eqn:rbf-kernel-math}. It is similar the scikits implementation but with a regularization factor $c$. 
 
@@ -91,23 +100,23 @@ For both age and gender classification, $\sigma$ and $c$ were chosen to be one a
 One of the interesting experiments is to check if the addition of some twitter specific features could affect the classification. For this experiment we only look into hashtags and links because user mentions are already handled previously since users have been anonymized. The treatment is simple and done in the preprocessing side. After taking the text from the html and converting them into lowercase, string substitution was performed on links and hashtags. All links were transformed into the text " LINK\_HERE " while hashtags were turned into " HASHTAG\_HERE ". The idea is that each link and hashtag wont be considered as a unique and that it would just add to the number of links or hashtags. After string substitution,~\textit{tfidf} was used and then features were ranked based on information gain. Top 9000 and 7000 words were used age and gender classification respectively. Finally, classification was done using the optimal settings given by the previous experiments and that given in the succeeding chapter. 
 
 
-\subsection{Using Classification Priors as a Feature}
-Another interesting experiment is that of classifcation when using the ouput of the other classification as a feature. For example, the results of gender classification will be used as a feature for age classification. And this will be done vice-versa with gender classification.  
+\subsection{Using Information of the Other Class as a Feature}
+Another interesting experiment is that of classification when using the information from the other class as a feature. For example, the results of gender classification will be used as a feature for age classification. And this will be done vice-versa with gender classification.  
 
 
 \subsection{Exploring Ensemble Methods}
-Finally, a comparison with ensemble methods was also done. Two different ensemble methods were considered - Random Forests and AdaBoost
+Finally, a comparison with ensemble methods was also done. Two different ensemble methods were considered - Random Forests and AdaBoost. Random Forests is one of the ensemble methods wherein results are averaged in the end. The full details of the algorithm are given by the paper of Breiman in~\cite{breiman2001random}. The idea is to build a multitude of decision trees and averaging their prediction results. The trees built will vary since they are built by taking a random sample with replacement from the training set. Furthermore, the features will also vary since it will be a random subset of features that are selected when the splitting is done in the training phase. 
 
-
-
-
-
+Adaptive Boosting or AdaBoost is another ensemble method formulated by Freund and Schapire in~\cite{freund1997decision}. The idea is to combine different weak models to produce a powerful ensemble. It is considered adaptive since the succeeding weak learners give more weight in classifying correctly instances in the training set which was misclassified by previous weak learners. 
 
 
 \section{Results and Discussion}	
 
 \subsection{Feature Selection}
-The results for feature selection are given in table~\ref{table:ChoosingNumFeatures}. When using all the different features, the highest accuracy could be attained. However, to check if the other accuracies are not statistically different, Wilcoxon signed rank test was done. The p-value results are given in table~\ref{table:PValChoosingFeatures}. For age classication with words ranked with information gain and gain ratio, the results begin to be statistically different when the number of features were 8000. The number of features chosen for further age classification experiments was 9000. On the other hand the results become statistically different when the number of features was 5000 for gender classification. Therefore, The number of features chosen for further age classification experiments was 7000. 
+The results for feature selection are given in table~\ref{table:ChoosingNumFeatures}. The highest accuracy could be attained when using all the different features. However, Wilcoxon signed rank test~\cite{wilcoxon1945individual} was done between the experiment with the highest accuracy and other subsequent experiments within each task and each ranking function. For example, in age classification, information gain features were used and the experiment that used 26263 features was compared to the other experiment that used 10000, 9000, and so on. The numbers in boldface are those which are not statistically different from each other. Therefore, for further experiments, 9000 features were used for classification while 7000 features were used for gender classfication. Information gain ranking was used instead of gain ratio because the words given by information gain were subjectively more descriptive than those given by gain ratio. 
+
+
+%Therefore, for age classication with words ranked with information gain and gain ratio, the results begin to be statistically different when the number of features were 8000. The number of features chosen for further age classification experiments was 9000. On the other hand the results become statistically different when the number of features was 5000 for gender classification. Therefore, The number of features chosen for further age classification experiments was 7000. 
 
 \begin{table}[!htbp]
 \centering
@@ -115,11 +124,11 @@ The results for feature selection are given in table~\ref{table:ChoosingNumFeatu
 \hline
                                    & \multicolumn{2}{c|}{Age} & \multicolumn{2}{c|}{Gender} \\ \hline
 \multicolumn{1}{|l|}{Num Features} & info gain  & gain ratio  & info gain    & gain ratio   \\ \hline
-26263                              & 0.6913     & 0.6913      & 0.6825       & 0.6825       \\ \hline
-10000                              & 0.6321     & 0.6321      & 0.6167       & 0.6167       \\ \hline
-9000                               & 0.6321     & 0.6321      & 0.6163       & 0.6163       \\ \hline
-8000                               & 0.6188     & 0.6188      & 0.6233       & 0.6233       \\ \hline
-7000                               & 0.6188     & 0.6188      & 0.6300       & 0.6300       \\ \hline
+26263                              & \textbf{0.6913}     & \textbf{0.6913}      & \textbf{0.6825}       & \textbf{0.6825}       \\ \hline
+10000                              & \textbf{0.6321}     & \textbf{0.6321}      & \textbf{0.6167}       & \textbf{0.6167}       \\ \hline
+9000                               & \textbf{0.6321}     & \textbf{0.6321}      & \textbf{0.6163}       & \textbf{0.6163}       \\ \hline
+8000                               & 0.6188     & 0.6188      & \textbf{0.6233}       & \textbf{0.6233}       \\ \hline
+7000                               & 0.6188     & 0.6188      & \textbf{0.6300}       & \textbf{0.6300}       \\ \hline
 5000                               & 0.6188     & 0.6188      & 0.4863       & 0.4863       \\ \hline
 2000                               & 0.6188     & 0.6188      & 0.4983       & 0.4983       \\ \hline
 1000                               & 0.6188     & 0.6188      & 0.4983       & 0.4983       \\ \hline
@@ -135,32 +144,32 @@ The results for feature selection are given in table~\ref{table:ChoosingNumFeatu
 
 
 
-\begin{table}[!htbp]
-\centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-                                   & \multicolumn{2}{c|}{Age}          & \multicolumn{2}{c|}{Gender}       \\ \hline
-\multicolumn{1}{|l|}{Num Features} & info gain       & gain ratio      & info gain       & gain ratio      \\ \hline
-26263                              & 1.0000          & 1.0000          & 1.0000          & 1.0000          \\ \hline
-10000                              & 0.0757          & 0.0757          & 0.1212          & 0.1212          \\ \hline
-9000                               & 0.0757          & 0.0757          & 0.1124          & 0.1124          \\ \hline
-8000                               & \textbf{0.0211} & \textbf{0.0211} & 0.1306          & 0.1306          \\ \hline
-7000                               & 0.0211          & 0.0211          & 0.1859          & 0.1859          \\ \hline
-5000                               & 0.0211          & 0.0211          & \textbf{0.0002} & \textbf{0.0002} \\ \hline
-2000                               & 0.0211          & 0.0211          & 0.0012          & 0.0012          \\ \hline
-1000                               & 0.0211          & 0.0211          & 0.0015          & 0.0015          \\ \hline
-700                                & 0.0211          & 0.0211          & 0.0006          & 0.0006          \\ \hline
-500                                & 0.0211          & 0.0211          & 0.0006          & 0.0006          \\ \hline
-300                                & 0.0211          & 0.0211          & 0.0006          & 0.0006          \\ \hline
-200                                & 0.0211          & 0.0211          & 0.0006          & 0.0006          \\ \hline
-100                                & 0.0211          & 0.0002          & 0.0006          & 0.0006          \\ \hline
-\end{tabular}
-\caption{Wilcoxon signed rank test results comparing accuracies give by the highest number of features and those with lower number of features.}
-\label{table:PValChoosingFeatures}
-\end{table}
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|c|c|c|c|}
+%\hline
+%                                   & \multicolumn{2}{c|}{Age}          & \multicolumn{2}{c|}{Gender}       \\ \hline
+%\multicolumn{1}{|l|}{Num Features} & info gain       & gain ratio      & info gain       & gain ratio      \\ \hline
+%26263                              & 1.0000          & 1.0000          & 1.0000          & 1.0000          \\ \hline
+%10000                              & 0.0757          & 0.0757          & 0.1212          & 0.1212          \\ \hline
+%9000                               & 0.0757          & 0.0757          & 0.1124          & 0.1124          \\ \hline
+%8000                               & \textbf{0.0211} & \textbf{0.0211} & 0.1306          & 0.1306          \\ \hline
+%7000                               & 0.0211          & 0.0211          & 0.1859          & 0.1859          \\ \hline
+%5000                               & 0.0211          & 0.0211          & \textbf{0.0002} & \textbf{0.0002} \\ \hline
+%2000                               & 0.0211          & 0.0211          & 0.0012          & 0.0012          \\ \hline
+%1000                               & 0.0211          & 0.0211          & 0.0015          & 0.0015          \\ \hline
+%700                                & 0.0211          & 0.0211          & 0.0006          & 0.0006          \\ \hline
+%500                                & 0.0211          & 0.0211          & 0.0006          & 0.0006          \\ \hline
+%300                                & 0.0211          & 0.0211          & 0.0006          & 0.0006          \\ \hline
+%200                                & 0.0211          & 0.0211          & 0.0006          & 0.0006          \\ \hline
+%100                                & 0.0211          & 0.0002          & 0.0006          & 0.0006          \\ \hline
+%\end{tabular}
+%\caption{Wilcoxon signed rank test results comparing accuracies give by the highest number of features and those with lower number of features.}
+%\label{table:PValChoosingFeatures}
+%\end{table}
 
 \subsection{Different Kernels}
-The results for age classification using support vector machines with polynomial kernel is given by table~\ref{table:SVMPolyAge}. The highest accuracy obtained was 80.92\% which is shown in boldface. This was obtained from three different settings, degree 3 with C to be either 10, 1000, 10000. However, checking on Wilcoxon signed rank test, these results are not statistically significant to 80.25\% given by settings with degree 2 and C to be either 10, 1000, 10000. These results are also not statistically significant against 75\% with degree 3 and C to be 1. 
+The results for age classification using support vector machines with polynomial kernel is given by table~\ref{table:SVMPolyAge}. The highest accuracy obtained was 80.92\%. This was obtained from three different settings, degree 3 with C to be either 10, 1000, 10000. However, checking on Wilcoxon signed rank test, these results are not statistically significant to 80.25\% given by settings with degree 2 and C to be either 10, 1000, 10000. These results are also not statistically significant against 75\% with degree 3 and C to be 1. The results shown in boldface are the highest accuracies that are not statistically different from each other. 
 
 \begin{table}[!htbp]
 \centering
@@ -180,7 +189,7 @@ The results for age classification using support vector machines with polynomial
 \label{table:SVMPolyAge}
 \end{table}
 
-The results for age classification using support vector machines with radial basis function kernel is given by table~\ref{table:SVMRBFAge}. Results show that the highest achieved accuracy was 80.92\% which is shown in boldface in the table. It was obtained from the kernel with gamma to be 0.001 and with a C to be 10000. This wasnt statistically different from the settings that gave 80.25\%.  
+The results for age classification using support vector machines with radial basis function kernel is given by table~\ref{table:SVMRBFAge}. Results show that the highest achieved accuracy was 80.92\%. It was obtained from the kernel with gamma to be 0.001 and with a C to be 10000. This wasnt statistically different from the settings that gave 80.25\%, 69.71\%, 68.46\%, and 65.17\% which are all shown in boldface. 
 
 
 % Please add the following required packages to your document preamble:
@@ -203,8 +212,9 @@ The results for age classification using support vector machines with radial bas
 \label{table:SVMRBFAge}
 \end{table}
 
+Comparing the two different kernels for age classification including different parameters, the settings settled for would be with the polynomial kernel of degree 3 with $C$ equal to 10.  
  
-The results for gender classification using support vector machines with polynomial function kernel is given by table~\ref{table:SVMPolyGender}. Results show  that the highest achieved accuracy was 79.54\% which is shown boldface in the table. This comes from four different settings. The first two were when the degree is 2 and C was chosen to be 10 or 10000. The last two settings were when degree is 3 with C also either 10 or 10000. 
+The results for gender classification using support vector machines with polynomial function kernel is given by table~\ref{table:SVMPolyGender}. Results show  that the highest achieved accuracy was 79.54\%. This comes from six different settings. The first three were when the degree is 2 and C was chosen to be either 10, 1000, or 10000. The last three settings were when degree is 3 with C also either 10, 1000, or 10000. These results are not statistically different from that which gave 70.25\% which are all written in boldface. 
 
 
 \begin{table}[!htbp]
@@ -226,8 +236,9 @@ The results for gender classification using support vector machines with polynom
 \end{table}
 
 
-The results for gender classification using support vector machines with radial basis function kernel is given by table~\ref{table:SVMRBFGender}. Results show  that the highest achieved accuracy was 80.79\% as shown boldface in the table. This comes from the settings with gamma to be 1 and C to be 10. However, these arent statistically different from settings which gave 80.21\% and 80.13\% accuracy.
+The results for gender classification using support vector machines with radial basis function kernel is given by table~\ref{table:SVMRBFGender}. Results show  that the highest achieved accuracy was 80.79\%. This comes from the settings with gamma to be 1 and C to be 10. However, these arent statistically different from settings which gave 80.21\%, 80.13\%, and 79.54\% accuracy, all of which are written in boldface in the table.
 
+Comparing the two different kernels for gender classification including different parameters, the settings settled for would be with the radial basis function kernel with gamma equal to 1 and $C$ equal to 10.  
 
 \begin{table}[!htbp]
 \centering
@@ -249,138 +260,207 @@ The results for gender classification using support vector machines with radial 
 
 
 \subsection{String Substitution}
-Comparisons between the the best from previous parameter tuning experiments and that where links and hashtags were substituted with a different string tag is shown in tables~\ref{table:AgeStringSub} and~\ref{table:GenderStringSub}. We can see that using the same parameters for the classifier, the performance drops when there's string substitution but the results are not statistically different. 
-\begin{table}[!htbp]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-\multirow{2}{*}{Method} & \multirow{2}{*}{Accuracy} & \multicolumn{4}{c|}{settings} \\ \cline{3-6} 
-                        &                           & kernel  & gamma & degree & C  \\ \hline
-Age with String Sub     & 0.7892                    & rbf     & 1     & N/A    & 10 \\ \hline
-Best Among Age          & 0.8092                    & rbf     & 1     & N/A    & 10 \\ \hline
-P-value                 & 0.8206                    &         &       &        &    \\ \hline
-\end{tabular}
-\caption{Comparison between the best accuracy for age classification from previous experiments against a classifier trained with links and hashtags string substitution.}
-\label{table:AgeStringSub}
-\end{table}
-
-
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
-\begin{table}[!htbp]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-\multirow{2}{*}{Method} & \multirow{2}{*}{Accuracy} & \multicolumn{4}{c|}{settings} \\ \cline{3-6} 
-                        &                           & kernel  & gamma & degree & C  \\ \hline
-Gender with String Sub  & 0.7442                    & rbf     & 1     & N/A    & 10 \\ \hline
-Best Among Gender          & 0.8079                    & rbf     & 1     & N/A    & 10 \\ \hline
-P-value                 & 0.4963                    &         &       &        &    \\ \hline
-\end{tabular}
-\caption{Comparison between the best accuracy for gender classification from previous experiments against a classifier trained with links and hashtags string substitution.}
-\label{table:GenderStringSub}
-\end{table}
-
-
-\subsection{Using Classification Priors}
-Comparisons between the the best from previous parameter tuning experiments and another method where the training set features is augmented by the results of another classification is given by tables~\ref{table:AgeWithPriors} and~\ref{table:GenderWithPriors}. We can see that age classification with features augmented by gender classification results has 2\% increased accuracy but it is not statistically different. For gender classification, the results are almost the same and are also not statistically different. 
-\begin{table}[!htbp]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-\multirow{2}{*}{Method} & \multirow{2}{*}{Accuracy} & \multicolumn{4}{c|}{settings}   \\ \cline{3-6} 
-                        &                           & kernel & gamma    & degree & C  \\ \hline
-Age with Gender Prior   & 0.8292                    & poly   & N/A      & 3      & 10 \\ \hline
-Best Among Age          & 0.8092                    & poly   & N/A &    3    &  10   \\ \hline
-P-value                 & 0.5453                    &        &          &        &    \\ \hline
-\end{tabular}
-\caption{Comparison between the best accuracy for age classification from previous experiments against a classifier trained with a feature set added with gender classification results.}
-\label{table:AgeWithPriors}
-\end{table}
+Comparisons between the the best from previous parameter tuning experiments and that where links and hashtags were substituted with a different string tag is shown in table~\ref{table:StringSub}. We can see that using the same parameters for the classifier, the performance drops when there's string substitution but the results are not statistically different. 
 
 \begin{table}[!htbp]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
-\multirow{2}{*}{Method} & \multirow{2}{*}{Accuracy} & \multicolumn{4}{c|}{settings} \\ \cline{3-6} 
-                        &                           & kernel  & gamma & degree & C  \\ \hline
-Gender with Age Prior   & 0.8021                    & rbf     & 1     & N/A    & 10 \\ \hline
-Best Among Age          & 0.8079                    & rbf     & 1     & N/A    & 10 \\ \hline
-P-value                 & 0.8206                    &         &       &        &    \\ \hline
+\multirow{2}{*}{Task} & \multicolumn{2}{c|}{Accuracy}                    &         & \multicolumn{4}{c|}{Settings} \\ \cline{2-8} 
+                      & With String Sub & Best from Previous Experiments & P-value & kernel  & gamma & degree & C  \\ \hline
+Age                   & 0.7892          & 0.8092                         & 0.8206  & poly    & N/A   & 3      & 10 \\ \hline
+Gender                & 0.7442          & 0.8079                         & 0.4963  & rbf     & 1     & N/A    & 10 \\ \hline
 \end{tabular}
-\caption{Comparison between the best accuracy for gender classification from previous experiments against a classifier trained with a feature set added with age classification results.}
-\label{table:GenderWithPriors}
+\caption{Comparison between the best accuracy for age and gender classification from previous experiments against a classifier trained with links and hashtags string substitution.}
+\label{table:StringSub}
 \end{table}
+
+
+
+
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|c|c|c|c|c|}
+%\hline
+%\multirow{2}{*}{Method} & \multirow{2}{*}{Accuracy} & \multicolumn{4}{c|}{settings} \\ \cline{3-6} 
+%                        &                           & kernel  & gamma & degree & C  \\ \hline
+%Age with String Sub     & 0.7892                    & rbf     & 1     & N/A    & 10 \\ \hline
+%Best Among Age          & 0.8092                    & rbf     & 1     & N/A    & 10 \\ \hline
+%P-value                 & 0.8206                    &         &       &        &    \\ \hline
+%\end{tabular}
+%\caption{Comparison between the best accuracy for age classification from previous experiments against a classifier trained with links and hashtags string substitution.}
+%\label{table:AgeStringSub}
+%\end{table}
+%
+%
+%% Please add the following required packages to your document preamble:
+%% \usepackage{multirow}
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|c|c|c|c|c|}
+%\hline
+%\multirow{2}{*}{Method} & \multirow{2}{*}{Accuracy} & \multicolumn{4}{c|}{settings} \\ \cline{3-6} 
+%                        &                           & kernel  & gamma & degree & C  \\ \hline
+%Gender with String Sub  & 0.7442                    & rbf     & 1     & N/A    & 10 \\ \hline
+%Best Among Gender          & 0.8079                    & rbf     & 1     & N/A    & 10 \\ \hline
+%P-value                 & 0.4963                    &         &       &        &    \\ \hline
+%\end{tabular}
+%\caption{Comparison between the best accuracy for gender classification from previous experiments against a classifier trained with links and hashtags string substitution.}
+%\label{table:GenderStringSub}
+%\end{table}
+
+
+\subsection{Using Information from Other Class}
+Comparisons between the the best from previous parameter tuning experiments and another method where the training set features is augmented by the information of the other class is given by table~\ref{table:WithPriors}. We can see that age classification with features augmented by gender classification results has 2\% increased accuracy but it is not statistically different. For gender classification, the results are almost the same and are also not statistically different. 
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Task} & \multicolumn{2}{c|}{Accuracy}                    &         & \multicolumn{4}{c|}{Settings} \\ \cline{2-8} 
+                      & With String Sub & Best from Previous Experiments & P-value & kernel  & gamma & degree & C  \\ \hline
+Age                   & 0.8292          & 0.8092                         & 0.5453  & poly    & N/A   & 3      & 10 \\ \hline
+Gender                & 0.8021          & 0.8079                         & 0.8206  & rbf     & 1     & N/A    & 10 \\ \hline
+\end{tabular}
+\caption{Comparison between the best accuracy for age and gender classification from previous experiments against a classifier trained with a feature set added with the information of the other class.}
+\label{table:WithPriors}
+\end{table}
+
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|c|c|c|c|c|}
+%\hline
+%\multirow{2}{*}{Method} & \multirow{2}{*}{Accuracy} & \multicolumn{4}{c|}{settings}   \\ \cline{3-6} 
+%                        &                           & kernel & gamma    & degree & C  \\ \hline
+%Age with Gender Prior   & 0.8292                    & poly   & N/A      & 3      & 10 \\ \hline
+%Best Among Age          & 0.8092                    & poly   & N/A &    3    &  10   \\ \hline
+%P-value                 & 0.5453                    &        &          &        &    \\ \hline
+%\end{tabular}
+%\caption{Comparison between the best accuracy for age classification from previous experiments against a classifier trained with a feature set added with gender classification results.}
+%\label{table:AgeWithPriors}
+%\end{table}
+%
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|c|c|c|c|c|}
+%\hline
+%\multirow{2}{*}{Method} & \multirow{2}{*}{Accuracy} & \multicolumn{4}{c|}{settings} \\ \cline{3-6} 
+%                        &                           & kernel  & gamma & degree & C  \\ \hline
+%Gender with Age Prior   & 0.8021                    & rbf     & 1     & N/A    & 10 \\ \hline
+%Best Among Age          & 0.8079                    & rbf     & 1     & N/A    & 10 \\ \hline
+%P-value                 & 0.8206                    &         &       &        &    \\ \hline
+%\end{tabular}
+%\caption{Comparison between the best accuracy for gender classification from previous experiments against a classifier trained with a feature set added with age classification results.}
+%\label{table:GenderWithPriors}
+%\end{table}
 
 
 \subsection{Ensemble Methods}
-Accuracy results for random forests are given in tables~\ref{table:AgeRandomForests} and~\ref{table:GenderRandomForests}. Accuracy results for AdaBoost are given in table~\ref{table:AgeAdaBoost} and~\ref{table:GenderAdaBoost}.
-\begin{table}[!htbp]
-\centering
-\begin{tabular}{|c|c|}
-\hline
-n-estimator & Accuracy \\ \hline
-10          & 0.6058 \\ \hline
-100         & 0.6046 \\ \hline
-1000        & 0.6112 \\ \hline
-2000        & 0.6046 \\ \hline
-5000        & 0.6108 \\ \hline
-10000       & 0.6175 \\ \hline
-\end{tabular}
-\caption{Accuracy results for age classification using forests of randomized trees.}
-\label{table:AgeRandomForests}
-\end{table}
+Accuracy results for random forests are given in table~\ref{table:RandomForests}. The highest accuracy obtained for age and gender classification using random forests are 61.12\% and 70.29\% respectively. However, after performing Wilcoxon signed rank test~\cite{wilcoxon1945individual} towards the other results within each task, the p-values show that the values are not statistically different from each other.  
 
 
 \begin{table}[!htbp]
 \centering
-\begin{tabular}{|c|c|}
+\begin{tabular}{|c|c|c|}
 \hline
-n-estimator & Accuracy \\ \hline
-10          & 0.5983 \\ \hline
-100         & 0.6500 \\ \hline
-1000        & 0.7029 \\ \hline
-2000        & 0.6762 \\ \hline
-5000        & 0.6963 \\ \hline
-10000       & 0.6967 \\ \hline
+n-estimators & Age    & Gender \\ \hline
+10           & 0.6058 & 0.5983 \\ \hline
+100          & 0.6046 & 0.6500 \\ \hline
+1000         & 0.6112 & 0.7029 \\ \hline
+2000         & 0.6046 & 0.6762 \\ \hline
+5000         & 0.6108 & 0.6963 \\ \hline
+10000        & 0.6175 & 0.6967 \\ \hline
 \end{tabular}
-\caption{Accuracy results for gender classification using forests of randomized trees.}
-\label{table:GenderRandomForests}
+\caption{Accuracy results for age and gender classification using forests of randomized trees.}
+\label{table:RandomForests}
 \end{table}
+
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|c|}
+%\hline
+%n-estimator & Accuracy \\ \hline
+%10          & 0.6058 \\ \hline
+%100         & 0.6046 \\ \hline
+%1000        & 0.6112 \\ \hline
+%2000        & 0.6046 \\ \hline
+%5000        & 0.6108 \\ \hline
+%10000       & 0.6175 \\ \hline
+%\end{tabular}
+%\caption{Accuracy results for age classification using forests of randomized trees.}
+%\label{table:AgeRandomForests}
+%\end{table}
+%
+%
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|c|}
+%\hline
+%n-estimator & Accuracy \\ \hline
+%10          & 0.5983 \\ \hline
+%100         & 0.6500 \\ \hline
+%1000        & 0.7029 \\ \hline
+%2000        & 0.6762 \\ \hline
+%5000        & 0.6963 \\ \hline
+%10000       & 0.6967 \\ \hline
+%\end{tabular}
+%\caption{Accuracy results for gender classification using forests of randomized trees.}
+%\label{table:GenderRandomForests}
+%\end{table}
+Accuracy results for AdaBoost are given in table~\ref{table:AdaBoost}. The highest accuracy obtained for age and gender classification using AdaBoost are 54.79\% and 75.00\% respectively. However, after performing Wilcoxon signed rank test~\cite{wilcoxon1945individual} towards the other results within each task, the p-values show that the values are also not statistically different from each other. 
 
 \begin{table}[!htbp]
 \centering
-\begin{tabular}{|c|c|}
+\begin{tabular}{|c|c|c|}
 \hline
-n-estimator & Accuracy \\ \hline
-50          & 0.5479 \\ \hline
-100         & 0.5217 \\ \hline
-150         & 0.5475 \\ \hline
-200         & 0.5146 \\ \hline
-250         & 0.5275 \\ \hline
+n-estimators & Age    & Gender \\ \hline
+50           & 0.5479 & 0.6787 \\ \hline
+100          & 0.5217 & 0.7187 \\ \hline
+150          & 0.5475 & 0.7183 \\ \hline
+200          & 0.5146 & 0.7500 \\ \hline
+250          & 0.5275 & 0.7308 \\ \hline
 \end{tabular}
-\caption{Accuracy results for age classification using AdaBoost.}
-\label{table:AgeAdaBoost}
+\caption{Accuracy results for age and gender classification using AdaBoost.}
+\label{table:AdaBoost}
 \end{table}
 
-\begin{table}[!htbp]
-\centering
-\begin{tabular}{|c|c|}
-\hline
-n-estimator & Accuracy \\ \hline
-50          & 0.6787 \\ \hline
-100         & 0.7187 \\ \hline
-150         & 0.7183 \\ \hline
-200         & 0.7500 \\ \hline
-250         & 0.7308 \\ \hline
-\end{tabular}
-\caption{My caption}
-\label{table:GenderAdaBoost}
-\end{table}
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|c|}
+%\hline
+%n-estimator & Accuracy \\ \hline
+%50          & 0.5479 \\ \hline
+%100         & 0.5217 \\ \hline
+%150         & 0.5475 \\ \hline
+%200         & 0.5146 \\ \hline
+%250         & 0.5275 \\ \hline
+%\end{tabular}
+%\caption{Accuracy results for age classification using AdaBoost.}
+%\label{table:AgeAdaBoost}
+%\end{table}
+%
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|c|}
+%\hline
+%n-estimator & Accuracy \\ \hline
+%50          & 0.6787 \\ \hline
+%100         & 0.7187 \\ \hline
+%150         & 0.7183 \\ \hline
+%200         & 0.7500 \\ \hline
+%250         & 0.7308 \\ \hline
+%\end{tabular}
+%\caption{My caption}
+%\label{table:GenderAdaBoost}
+%\end{table}
 
 
 \section{Conclusions and Future Work}
-%Given the different experiments, it could be shown that the highest accuracy that could be achieved were 80.92\% and 74.29\% for age and gender respectively. The highest accuracies could be attained could either be from polynomial kernels or radial basis function kernels. For instance, for age classification, the highest accuracy could either be obtained with a polynomial kernel with degree 3 and C to be 10 or it could also be a through a radial basis function with gamma to be 0.001 and C to be 10000. For gender classification, the similarity exists as well. A polynomial kernel could be used with the second degree and C to be 10000 and it will yield the same accuracy as the one with a radial basis function with gamma to be 0.01 and and C to be 10000. 
+There are various conclusions that could be found from the results. First, we can conclude that using minimal preprocessing, using the top 9000 features as ranked by information gain for age classification would yield the same results as using all the different features, from a statistical standpoint. This also goes true for gender classification but with the top 7000 features. Second, looking into the differences in kernel functions, the results show that the highest accuracy that could be achieved were 80.92\% and 80.79\% for age and gender respectively. These accuracies could be attained could from either polynomial kernels or radial basis function kernels. For instance, for age classification, the highest accuracy could either be obtained with a polynomial kernel with degree 3 and C to be 10 or it could also be a through a radial basis function with gamma to be 0.001 and C to be 10000. For gender classification, the similarity exists as well. A polynomial kernel could be used with the second degree and C to be 10000 and it will yield the same accuracy as the one with a radial basis function with gamma to be 0.01 and and C to be 10000. For the purposes of our next experiments, we fixed the parameters such that for age classification, we an SVM with polynomial kernel with degree to be 3 and $C$ to be 10, while for gender classification, we use a radial basis function kernel with gamma to be 1 and $C$ to be 10. Third, looking into features that are specific to twitter data, we see that substituting a hyperlinks and hashtags lower the accuracy as compared to the best among the previous experiments, although they arent statistically different. Fourth, we can also see that using information given by another class does not improve the classification results. Finally, results from ensemble methods are not statistically different from each other and accuracy results are lower than the others. 
+
+For future work, it should be noted that the current features are very minimal. The preprocessing is minimal. The features are~\textit{tfidf} ranked by information gain. For twitter specific features, only the hashtags, user mentions, and hyperlinks were identified and checked. It would be better if other features specific to twitter could be incorporated. Examples of such would be emoticons and character flooding. Experiments with character ngrams is also another direction to check. 
+
+
 %
 %We have to note that in this set of experiments, the features used were only~\textit{tfidf}. However, using other features in conjunction with parameter tuning, can also yield better results. Other features can include POS tags, text and character ngrams, length of words, ratios between uppercase and lowercase, non-dictionary words, emoticons, and lexical diversity. Furthermore, different types of preprocessing can also be done for this thing. 
 
