@@ -3,24 +3,24 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: CAMN Paper 02.aux
 The style file: plain.bst
 Database file #1: citations.bib
-Repeated entry---line 166 of file citations.bib
+Repeated entry---line 173 of file citations.bib
  : %@inproceedings{rangel:2015
  :                            ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 179 of file citations.bib
+Repeated entry---line 186 of file citations.bib
  : %@inproceedings{rangel:2015
  :                            ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 196 of file citations.bib
+Repeated entry---line 203 of file citations.bib
  : %@proceedings{rangel:2015
  :                          ,
 I'm skipping whatever remains of this entry
-You're missing a field name---line 208 of file citations.bib
+You're missing a field name---line 215 of file citations.bib
  : 
  : %  title={Overview of the 3nd Author Profiling Task at PAN 2015},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Repeated entry---line 262 of file citations.bib
+Repeated entry---line 269 of file citations.bib
  : @inproceedings{schler2006effects
  :                                 ,
 I'm skipping whatever remains of this entry
