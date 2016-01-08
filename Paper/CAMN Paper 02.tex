@@ -385,7 +385,7 @@ Gender                & 0.8021          & 0.8079                         & 0.820
 
 
 \subsection{Ensemble Methods}
-Accuracy results for random forests are given in table~\ref{table:RandomForests}. The highest accuracy obtained for age and gender classification using random forests are 61.12\% and 70.29\% respectively. However, after performing Wilcoxon signed rank test~\cite{wilcoxon1945individual} towards the other results within each task, the p-values show that the values are not statistically different from each other.  
+Accuracy results for random forests are given in table~\ref{table:RandomForests}. The highest accuracy obtained for age and gender classification using random forests are 61.12\% and 70.29\% respectively. However, after performing Wilcoxon signed rank test~\cite{wilcoxon1945individual} towards the other results within each task, the p-values show that the values are not statistically different from each other. On the other hand, comparing 61.12\% from the random forest result for age classification to the 80.92\% result using an SVM with polynomial kernel with degree 3 and C to be 10 was statistically different. But for gender classification, comparing 70.29\% from the random forest result was not statistically significant to the 70.29\% from using SVM with radial basis function with gamma to be 1 and C to be 10. 
 
 
 \begin{table}[!htbp]
@@ -436,7 +436,7 @@ n-estimators & Age    & Gender \\ \hline
 %\caption{Accuracy results for gender classification using forests of randomized trees.}
 %\label{table:GenderRandomForests}
 %\end{table}
-Accuracy results for AdaBoost are given in table~\ref{table:AdaBoost}. The highest accuracy obtained for age and gender classification using AdaBoost are 54.79\% and 75.00\% respectively. However, after performing Wilcoxon signed rank test~\cite{wilcoxon1945individual} towards the other results within each task, the p-values show that the values are also not statistically different from each other. 
+Accuracy results for AdaBoost are given in table~\ref{table:AdaBoost}. The highest accuracy obtained for age and gender classification using AdaBoost are 54.79\% and 75.00\% respectively. However, after performing Wilcoxon signed rank test~\cite{wilcoxon1945individual} towards the other results within each task, the p-values show that the values are also not statistically different from each other. On the other hand, comparing 54.79\% from adaboost result for age classification to the 80.92\% result using an SVM with polynomial kernel with degree 3 and C to be 10 was statistically different. But for gender classification, comparing 75.00\% from the adaboost result was not statistically significant to the 70.29\% from using SVM with radial basis function with gamma to be 1 and C to be 10.  
 
 \begin{table}[!htbp]
 \centering
